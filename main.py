@@ -15,5 +15,4 @@ def Wavelet(n):
         W[i,i*2+1]=1/2
         W[i+int(n/2),i*2]=-1/2
         W[i+int(n/2),i*2+1]=1/2
-    return W
-print(Wavelet(10))
+    return np.sqrt(2)*W
