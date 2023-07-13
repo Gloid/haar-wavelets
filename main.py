@@ -18,14 +18,18 @@ def Wavelet(n):
     return np.sqrt(2)*W
 
 def compression1d(image):
+    #Returns ndarray of the 1-dimensional HWT of image
+    #image (ndarray) 
     Wm = Wavelet(np.shape(image)[0])
-    return np.abs(np.rint(np.matmul(Wm,image))).astype('int')
+    return np.matmul(Wm,image)
 
 
 def compression2d(image):
+    #Returns ndarray of the 2-dimensional HWT of image
+    #image (ndarray) 
     Wm = Wavelet(np.shape(image)[0])
     Wn = Wavelet(np.shape(image)[1])
-    return np.abs(np.rint(np.matmul(np.matmul(Wm,image),Wn.transpose()))).astype('int')
+    return np.clip(np.matmul(np.matmul(Wm,image),Wn.transpose()),0,255)
 
 plt.imshow(compression2d(testIm), cmap='gray',interpolation='nearest')
 plt.savefig('filtrerad_kvinna.jpg',bbox_inches='tight')
@@ -33,6 +37,5 @@ plt.show()
 
 #Dont know why ImageOps.grayscale is necessary, get error if removed
 #Saved image has poor quality compared to the plotted image
-compressedImage = ImageOps.grayscale(Image.fromarray(compression2d(testIm)))
-
-compressedImage.save('filtrerad_kvinna.jpg')
+compressedImage = Image.fromarray(compression2d(testIm))
+compressedImage.save('komprimerad_kvinna.jpg')
