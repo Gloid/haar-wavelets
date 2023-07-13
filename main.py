@@ -29,13 +29,15 @@ def compression2d(image):
     #image (ndarray) 
     Wm = Wavelet(np.shape(image)[0])
     Wn = Wavelet(np.shape(image)[1])
-    return np.clip(np.matmul(np.matmul(Wm,image),Wn.transpose()),0,255)
+    return np.matmul(np.matmul(Wm,image),Wn.transpose())
+
 
 plt.imshow(compression2d(testIm), cmap='gray',interpolation='nearest')
-plt.savefig('filtrerad_kvinna.jpg',bbox_inches='tight')
+#plt.savefig('filtrerad_kvinna.jpg',bbox_inches='tight')
 plt.show()
 
-#Dont know why ImageOps.grayscale is necessary, get error if removed
-#Saved image has poor quality compared to the plotted image
-compressedImage = Image.fromarray(compression2d(testIm))
-compressedImage.save('komprimerad_kvinna.jpg')
+#Something wrong here, plt.imshow shows correct image when Image.show() does not
+compressedImage = Image.fromarray(compression2d(testIm), 'L')
+
+compressedImage.show()
+#compressedImage.save('komprimerad_kvinna.jpg')
