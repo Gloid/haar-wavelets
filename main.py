@@ -45,7 +45,6 @@ plt.imshow(compression2d(testIm), cmap='gray',interpolation='nearest')
 #plt.savefig('filtrerad_kvinna.jpg',bbox_inches='tight')
 plt.show()
 
-#Something wrong here, plt.imshow shows correct image when Image.show() does not
 compressedImage = Image.fromarray(np.uint8((compression2d(testIm))), 'L')
 
 compressedImage.show()
