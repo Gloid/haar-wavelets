@@ -73,10 +73,11 @@ def Haarcompression(image, n):
     return image
 
 
-compressedImage = Image.fromarray(np.uint8((Haarcompression(testIm,3))), 'L')
+compressedImage1 = Image.fromarray(np.uint8((Haarcompression(testIm,3))), 'L')
 
-compressedImage.show()
-
+compressedImage1.show()
+compressedImage2 = Image.fromarray(np.uint8(HWT2D(testIm)), 'L')
+compressedImage2.show()
 #originalImage = Image.fromarray(np.uint8((inverseHaarTransformation(HWT2D(testIm)))), 'L')
 #originalImage.show()
 #compressedImage.save('komprimerad_kvinna.jpg')
