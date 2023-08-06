@@ -22,6 +22,26 @@ def HaarWavelet(n):
 '''
 Invers - Elias
 '''
+
+def inverseHaarTransformation(arrs):
+    imarray = np.vstack((np.concatenate(arrs[0,:], axis=1), np.concatenate(arrs[1,:], axis=1)))
+    m = imarray.shape[0]
+    n = imarray.shape[1]
+    if not m % 2 == 0:
+        imarray = imarray[:-1]
+        m -= 1
+    if not n % 2 == 0:
+        imarray = imarray[:,:-1]
+        n -= 1
+    
+    marr = haar_matrix(m, True)
+    narr = haar_matrix(n, True).transpose()
+    
+    transformed = np.matmul(marr, imarray)
+    transformed = np.matmul(transformed, narr)
+    
+    return transformed
+
 '''
 Kompression/iteration
 '''
