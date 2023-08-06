@@ -6,7 +6,12 @@ Inledning/Teori - Jacob
 Hur man skapar matrisen - Jacob
 '''
 def HaarWavelet(n):
-    
+    """ Creates a Haar Wavelet matrix of size n x n:
+    Parameters:
+        n (int) represents the dimensions of the matrix
+    on return:
+        Returns a n x n Haar Wavelet matrix as an NumPy array
+    """
     Matrix= np.zeros([n,n])
     
     for i in range(int(n/2)):
