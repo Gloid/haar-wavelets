@@ -5,7 +5,7 @@ Inledning/Teori - Jacob
 
 Hur man skapar matrisen - Jacob
 '''
-def HaarWavelet(n):
+def HaarWaveletMatrix(n):
     """ Creates a Haar Wavelet matrix of size n x n:
     Parameters:
         n (int) represents the dimensions of the matrix
