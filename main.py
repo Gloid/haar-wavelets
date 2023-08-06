@@ -2,9 +2,6 @@ import scipy.misc as sm
 import imageio.v2 as iio
 import numpy as np
 import time as tm
-
-np.set_printoptions(threshold=np.inf)
-
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from PIL import Image, ImageOps
@@ -93,7 +90,7 @@ compressedImage1 = Image.fromarray(np.uint8((HWT2D(testIm))), 'L')
 t11 = tm.time()
 compressedImage1.show()
 t02 = tm.time()
-compressedImage2 = Image.fromarray(np.uint8(averages(testIm)), 'L')
+compressedImage2 = Image.fromarray(np.uint8(averages(testIm,1)), 'L')
 t12 = tm.time()
 compressedImage2.show()
 
