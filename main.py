@@ -1,6 +1,8 @@
 import scipy.misc as sm
 import imageio.v2 as iio
 import numpy as np
+import time as tm
+
 np.set_printoptions(threshold=np.inf)
 
 import matplotlib.pyplot as plt
@@ -72,12 +74,32 @@ def Haarcompression(image, n):
         image = image[0:int(np.shape(image)[0]/2),0:int(np.shape(image)[1]/2)]
     return image
 
+def averages(image, n):
+    newImage = np.zeros([np.shape(image)[0], np.shape(image)[1]])
+    rows = np.shape(image)[0]
+    cols = np.shape(image)[1]
+    for i in range(n):
+        for r in range(int(rows/2)):
+            for c in range(int(cols/2)):
+                newImage[r,c]= image[2*r,2*c]/4 + image[2*r+1,2*c]/4 + image[2*r,2*c+1]/4 + image[2*r+1,2*c+1]/4
+                newImage[r+int(rows/2),c] = -1*image[2*r,2*c]/4 + image[2*r+1,2*c]/4 - image[2*r,2*c+1]/4 + image[2*r+1,2*c+1]/4
+                newImage[r,c+int(cols/2)] = image[2*r,2*c]/4 - image[2*r+1,2*c]/4 + image[2*r,2*c+1]/4 - image[2*r+1,2*c+1]/4
+                newImage[r+int(rows/2),c+int(cols/2)]= image[2*r,2*c]/4 - image[2*r+1,2*c]/4 - image[2*r,2*c+1]/4 + image[2*r+1,2*c+1]/4
+    return np.abs(newImage)
 
-compressedImage1 = Image.fromarray(np.uint8((Haarcompression(testIm,3))), 'L')
 
+t01 = tm.time()
+compressedImage1 = Image.fromarray(np.uint8((HWT2D(testIm))), 'L')
+t11 = tm.time()
 compressedImage1.show()
-compressedImage2 = Image.fromarray(np.uint8(HWT2D(testIm)), 'L')
+t02 = tm.time()
+compressedImage2 = Image.fromarray(np.uint8(averages(testIm)), 'L')
+t12 = tm.time()
 compressedImage2.show()
+
+print(f"Time for Haar transformation: {t11-t01}s")
+print(f"Time for manual transformation: {t12-t02}s")
+
 #originalImage = Image.fromarray(np.uint8((inverseHaarTransformation(HWT2D(testIm)))), 'L')
 #originalImage.show()
 #compressedImage.save('komprimerad_kvinna.jpg')
