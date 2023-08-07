@@ -1,3 +1,5 @@
+import numpy as np
+
 
 '''
 Inledning/Teori - Jacob
@@ -20,9 +22,36 @@ def HaarWaveletMatrix(n):
         Matrix[i+int(n/2),i*2]=-1/2
         Matrix[i+int(n/2),i*2+1]=1/2
     return np.sqrt(2)*Matrix
+
 ''' 
 1-dimensionell transformation + 2-dimensionell transform - Peter
 '''
+def HWT1D(image):
+    #Returns ndarray of the 1-dimensional HWT of image
+    #image (ndarray) 
+    if np.shape(image)[0] % 2 != 0:
+        np.delete(image,(np.shape(image)[0]-1),axis=0)
+    Wm = HaarWaveletMatrix(np.shape(image)[0])
+    newImage = np.matmul(Wm,image)
+    newImage  = np.abs(np.rint(newImage))
+    newImage *= (255.0/newImage.max())
+    return newImage
+
+
+def HWT2D(image):
+    #Returns ndarray of the 2-dimensional HWT of image
+    #image (ndarray) 
+    if np.shape(image)[0] % 2 != 0:
+        np.delete(image,(np.shape(image)[0]-1),axis=0)
+    if np.shape(image)[1] % 2 != 0:
+        np.delete(image, (np.shape(image)[1]-1),axis=1)
+    Wm = HaarWaveletMatrix(np.shape(image)[0])
+    Wn = HaarWaveletMatrix(np.shape(image)[1])
+    newImage = np.matmul(np.matmul(Wm,image),Wn.transpose())
+    newImage  = np.abs(np.rint(newImage))
+    #Scaling values to fit [0,255]
+    newImage *= (255.0/newImage.max())
+    return newImage
 
 '''
 Invers - Elias
