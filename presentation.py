@@ -27,8 +27,14 @@ def HaarWaveletMatrix(n):
 1-dimensionell transformation + 2-dimensionell transform - Peter
 '''
 def HWT1D(image):
-    #Returns ndarray of the 1-dimensional HWT of image
-    #image (ndarray) 
+    '''
+    Returns ndarray of the 1-dimensional HWT of image
+        Parameters:
+            image (ndarray): The image of which the transform is applied to
+
+        Returns:
+            newImage (ndarray): The resulting image from the transformation
+    '''
     if np.shape(image)[0] % 2 != 0:
         np.delete(image,(np.shape(image)[0]-1),axis=0)
     Wm = HaarWaveletMatrix(np.shape(image)[0])
@@ -39,8 +45,14 @@ def HWT1D(image):
 
 
 def HWT2D(image):
-    #Returns ndarray of the 2-dimensional HWT of image
-    #image (ndarray) 
+    '''
+    Returns ndarray of the 2-dimensional HWT of image
+        Parameters:
+            image (ndarray): The image of which the transform is applied to
+
+        Returns:
+            newImage (ndarray): The resulting image from the transformation
+    ''' 
     if np.shape(image)[0] % 2 != 0:
         np.delete(image,(np.shape(image)[0]-1),axis=0)
     if np.shape(image)[1] % 2 != 0:
