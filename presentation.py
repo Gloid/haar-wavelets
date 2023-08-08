@@ -1,5 +1,6 @@
 import numpy as np
-
+from PIL import Image
+testIm = np.asarray(Image.open('kvinna.jpg').convert('L'))
 
 '''
 Inledning/Teori - Jacob
@@ -28,12 +29,14 @@ def HaarWaveletMatrix(n):
 '''
 def HWT1D(image):
     '''
-    Returns ndarray of the 1-dimensional HWT of image
+    Performs the 1-D Haar Wavelet transformation on an image
         Parameters:
             image (ndarray): The image of which the transform is applied to
 
         Returns:
-            newImage (ndarray): The resulting image from the transformation
+            tuple (ndarray, ndarray):
+                topIm (ndarray): the weighted averages of the columns
+                botIm (ndarray): the weighted differences of the columns
     '''
     if np.shape(image)[0] % 2 != 0:
         np.delete(image,(np.shape(image)[0]-1),axis=0)
@@ -41,17 +44,24 @@ def HWT1D(image):
     newImage = np.matmul(Wm,image)
     newImage  = np.abs(np.rint(newImage))
     newImage *= (255.0/newImage.max())
-    return newImage
+    topIm = newImage[:int(np.shape(newImage)[0]/2), :]
+    botIm = newImage[int(np.shape(newImage)[0]/2):, :]
+    return topIm, botIm
+
 
 
 def HWT2D(image):
     '''
-    Returns ndarray of the 2-dimensional HWT of image
+    Performs the 2-D Haar Wavelet transformation on an image
         Parameters:
             image (ndarray): The image of which the transform is applied to
 
         Returns:
-            newImage (ndarray): The resulting image from the transformation
+            tuple (ndarray, ndarray, ndarray, ndarray):
+                topL (ndarray): the weighted averages
+                topR (ndarray): the weighted differences of the rows
+                botL (ndarray): the weighted differences of the columns
+                botR (ndarray): the weighted differences of both the rows and columns
     ''' 
     if np.shape(image)[0] % 2 != 0:
         np.delete(image,(np.shape(image)[0]-1),axis=0)
@@ -63,7 +73,12 @@ def HWT2D(image):
     newImage  = np.abs(np.rint(newImage))
     #Scaling values to fit [0,255]
     newImage *= (255.0/newImage.max())
-    return newImage
+    topL = newImage[0:int(np.shape(newImage)[0]/2), 0:int(np.shape(newImage)[1]/2)]
+    topR = newImage[0:int(np.shape(newImage)[0]/2), int(np.shape(newImage)[1]/2):]
+    botL = newImage[int(np.shape(newImage)[0]/2):, 0:int(np.shape(newImage)[1]/2)]
+    botR = newImage[int(np.shape(newImage)[0]/2):, int(np.shape(newImage)[1]/2):]
+    return topL, topR, botL, botR
+
 
 '''
 Invers - Elias
