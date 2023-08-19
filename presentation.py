@@ -82,21 +82,24 @@ def HWT2D(image):
 
 '''
 Invers - Elias
+Tar en tuple som ges av HWT2D och ger en array av samma storlek som originalet.
+Vi förlorar dock en del av luminansen om vi skalar värdena till 0-255 i HWT2D, kanske göra det i kompressions/iterationsdelen istället?
+Alternativt om vi har en "sista" funktion som alltid används när bilden ska sparas där man skalar värdena så de passar formatet.
+
+def saveim(arr, maxlum, path):
+    arr = arr*(maxlum/np.max(arr)) # Scale the image to the max luminosity of the original
+    arr = np.round(arr).astype(np.uint8) # Convert to uint8
+    io.imsave(path, arr)
+
 '''
 
 def inverseHaarTransformation(arrs):
-    imarray = np.vstack((np.concatenate(arrs[0,:], axis=1), np.concatenate(arrs[1,:], axis=1)))
+    imarray = np.vstack((np.hstack((arrs[0], arrs[1])), np.hstack((arrs[2], arrs[3]))))
     m = imarray.shape[0]
     n = imarray.shape[1]
-    if not m % 2 == 0:
-        imarray = imarray[:-1]
-        m -= 1
-    if not n % 2 == 0:
-        imarray = imarray[:,:-1]
-        n -= 1
     
-    marr = haar_matrix(m, True)
-    narr = haar_matrix(n, True).transpose()
+    marr = HaarWaveletMatrix(m).transpose()
+    narr = HaarWaveletMatrix(n)
     
     transformed = np.matmul(marr, imarray)
     transformed = np.matmul(transformed, narr)
