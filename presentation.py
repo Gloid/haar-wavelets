@@ -114,19 +114,18 @@ def inverseHaarTransformation(arrs):
 '''
 Kompression/iteration - Jakob
 '''
-def Haarcompression(image):
-    """Compresses a image two times:
+def Haarcompression(image, n = 1):
+    """Compresses a image n+1 times:
     Parameters:
-               image(name) is the image to be compressed.
+               image(array) is the image to be compressed.
     On return:
-               Returns the two times compressed image and the four matrices from the first compressionround.
+               Returns the n+1 compressed array and the four arrays from the n:the compressionround.
                """
-    image = Image.open(image).convert('L')
-    IM = np.asarray(image)
-    topL, topR, botL, botR = HWT2D(IM)
-    compressedimage, topR2, botL2, botR2 = HWT2D(topL)
-    compressedimage = Image.fromarray(compressedimage)
-
+    topL = image
+    for i in range(n):
+        topL, topR, botL, botR = HWT2D(topL)
+        compressedimage = HWT2D(topL)[0]
+    
     return compressedimage, topL, topR, botL, botR
 '''
 Manuella medelvärden - Maximilian
@@ -156,8 +155,11 @@ def averages(image, n):
 '''
 Exempel/Demonstration - Jakob
 '''
-compressedimage, topL, topR, botL, botR, = Haarcompression("Gruppbild.jpg")
-mplpy.figure(figsize=(6,4))
+image = Image.open("Gruppbild.jpg").convert('L')
+image = np.asarray(image)
+compressedimage, topL, topR, botL, botR, = Haarcompression(image)
+compressedimage = Image.fromarray(compressedimage)
+mplpy.figure(figsize=(8,4))
 mplpy.subplot(2,2,1)
 mplpy.imshow(topL)
 mplpy.subplot(2,2,2)
