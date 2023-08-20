@@ -1,5 +1,6 @@
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as mplpy
 testIm = np.asarray(Image.open('kvinna.jpg').convert('L'))
 
 '''
@@ -109,9 +110,39 @@ def inverseHaarTransformation(arrs):
 '''
 Kompression/iteration
 '''
+def Haarcompression(image):
+    """Compresses a image two times:
+    Parameters:
+               image(name) is the image to be compressed.
+    On return:
+               Returns the two times compressed image and the four matrices from the first compressionround.
+               """
+    image = Image.open(image).convert('L')
+    IM = np.asarray(image)
+    if IM.shape[0] % 2 != 0:
+        IM = IM[:-1,:]
+    if IM.shape[-1] % 2 != 0:
+        IM = IM[:,:-1]
+    topL, topR, botL, botR = HWT2D(IM)
+    compressedimage, topR2, botL2, botR2 = HWT2D(topL)
+
+    return compressedimage, topL, topR, botL, botR
 '''
 Manuella medelvärden - Maximilian
 '''
 '''
 Exempel/Demonstration
 '''
+compressedimage, topL, topR, botL, botR, = Haarcompression("Gruppbild.jpg")
+mplpy.figure(figsize=(6,4))
+mplpy.subplot(2,2,1)
+mplpy.imshow(topL)
+mplpy.subplot(2,2,2)
+mplpy.imshow(topR)
+mplpy.subplot(2,2,3)
+mplpy.imshow(botL)
+mplpy.subplot(2,2,4)
+mplpy.imshow(botR)
+mlppy.show()
+compressedimage = Image.fromarray(compressedimage)
+mplpy.imshow(compressedimage)
