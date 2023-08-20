@@ -127,6 +127,28 @@ def Haarcompression(image):
 '''
 Manuella medelvärden - Maximilian
 '''
+def averages(image, n):
+    """Compresses an image using block-averaging
+    
+    Parameters:
+        image - the image that is compressed
+        n - the number of compressions 
+
+    On Return:
+        Returns a compressed image using the averages in each block
+    """
+    rows = image.shape[0]
+    cols = image.shape[1]
+    new_rows, new_cols = rows // (2**n), cols // (2**n)
+    newImage = np.zeros((new_rows, new_cols))
+
+    for r in range(new_rows):
+        for c in range(new_cols):
+            block_sum = np.sum(image[r*2**n:(r+1)*2**n, c*2**n:(c+1)*2**n])
+            newImage[r, c] = block_sum / (2**(2*n))
+
+    return np.abs(newImage)
+
 '''
 Exempel/Demonstration - Jakob
 '''
