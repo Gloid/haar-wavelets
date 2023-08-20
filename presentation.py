@@ -119,12 +119,9 @@ def Haarcompression(image):
                """
     image = Image.open(image).convert('L')
     IM = np.asarray(image)
-    if IM.shape[0] % 2 != 0:
-        IM = IM[:-1,:]
-    if IM.shape[-1] % 2 != 0:
-        IM = IM[:,:-1]
     topL, topR, botL, botR = HWT2D(IM)
     compressedimage, topR2, botL2, botR2 = HWT2D(topL)
+    compressedimage = Image.fromarray(compressedimage)
 
     return compressedimage, topL, topR, botL, botR
 '''
@@ -144,5 +141,4 @@ mplpy.imshow(botL)
 mplpy.subplot(2,2,4)
 mplpy.imshow(botR)
 mplpy.show()
-compressedimage = Image.fromarray(compressedimage)
 mplpy.imshow(compressedimage)
