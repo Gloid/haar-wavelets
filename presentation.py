@@ -90,6 +90,15 @@ def saveim(arr, maxlum, path):
 '''
 
 def inverseHaarTransformation(arrs):
+    """
+    Performs the inverse HWT on a tuple of 4 subarrays.
+
+    Args:
+        arrs (Tuple): A tuple containing the 4 subarrays as returned from HWT2D.
+
+    Returns:
+        Array: An array representing the original image before the HWT was applied.
+    """
     imarray = np.vstack((np.hstack((arrs[0], arrs[1])), np.hstack((arrs[2], arrs[3]))))
     m = imarray.shape[0]
     n = imarray.shape[1]
