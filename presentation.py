@@ -3,12 +3,7 @@ from PIL import Image
 import matplotlib.pyplot as mplpy
 testIm = np.asarray(Image.open('kvinna.jpg').convert('L'))
 
-'''
-Inledning/Teori - Jacob
 
-
-Hur man skapar matrisen - Jacob
-'''
 def HaarWaveletMatrix(n):
     """ Creates a Haar Wavelet matrix of size n x n:
     Parameters:
