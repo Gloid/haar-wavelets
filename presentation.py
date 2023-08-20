@@ -108,7 +108,7 @@ def inverseHaarTransformation(arrs):
     return transformed
 
 '''
-Kompression/iteration
+Kompression/iteration - Jakob
 '''
 def Haarcompression(image):
     """Compresses a image two times:
@@ -131,7 +131,7 @@ def Haarcompression(image):
 Manuella medelvärden - Maximilian
 '''
 '''
-Exempel/Demonstration
+Exempel/Demonstration - Jakob
 '''
 compressedimage, topL, topR, botL, botR, = Haarcompression("Gruppbild.jpg")
 mplpy.figure(figsize=(6,4))
