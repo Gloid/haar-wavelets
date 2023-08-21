@@ -117,7 +117,8 @@ Kompression/iteration - Jakob
 def Haarcompression(image, n = 1):
     """Compresses a image n+1 times:
     Parameters:
-               image(array) is the image to be compressed.
+               image (ndarray) is the image to be compressed.
+               n (int) number of iterations desired
     On return:
                Returns the n+1 compressed array and the four arrays from the n:the compressionround.
                """
