@@ -73,6 +73,7 @@ def HWT2D(image):
     return topL, topR, botL, botR
 
 
+
 def inverseHaarTransformation(arrs):
     """
     Performs the inverse HWT on a tuple of 4 subarrays.
