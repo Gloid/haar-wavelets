@@ -20,9 +20,6 @@ def HaarWaveletMatrix(n):
         Matrix[i+int(n/2),i*2+1]=1/2
     return np.sqrt(2)*Matrix
 
-''' 
-1-dimensionell transformation + 2-dimensionell transform - Peter
-'''
 def HWT1D(image):
     '''
     Performs the 1-D Haar Wavelet transformation on an image
@@ -76,19 +73,6 @@ def HWT2D(image):
     return topL, topR, botL, botR
 
 
-'''
-Invers - Elias
-Tar en tuple som ges av HWT2D och ger en array av samma storlek som originalet.
-Vi förlorar dock en del av luminansen om vi skalar värdena till 0-255 i HWT2D, kanske göra det i kompressions/iterationsdelen istället?
-Alternativt om vi har en "sista" funktion som alltid används när bilden ska sparas där man skalar värdena så de passar formatet.
-
-def saveim(arr, maxlum, path):
-    arr = arr*(maxlum/np.max(arr)) # Scale the image to the max luminosity of the original
-    arr = np.round(arr).astype(np.uint8) # Convert to uint8
-    io.imsave(path, arr)
-
-'''
-
 def inverseHaarTransformation(arrs):
     """
     Performs the inverse HWT on a tuple of 4 subarrays.
@@ -111,9 +95,6 @@ def inverseHaarTransformation(arrs):
     
     return transformed
 
-'''
-Kompression/iteration - Jakob
-'''
 def Haarcompression(image, n = 1):
     """Compresses a image n+1 times:
     Parameters:
@@ -128,9 +109,7 @@ def Haarcompression(image, n = 1):
         compressedimage = HWT2D(topL)[0]
     
     return compressedimage, topL, topR, botL, botR
-'''
-Manuella medelvärden - Maximilian
-'''
+
 def averages(image, n):
     """Compresses an image using block-averaging
     
@@ -153,9 +132,6 @@ def averages(image, n):
 
     return np.abs(newImage)
 
-'''
-Exempel/Demonstration - Jakob
-'''
 image = Image.open("Gruppbild.jpg").convert('L')
 image = np.asarray(image)
 compressedimage, topL, topR, botL, botR, = Haarcompression(image)
