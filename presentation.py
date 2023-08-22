@@ -78,14 +78,6 @@ def HWT2D(image):
 
 '''
 Invers - Elias
-Tar en tuple som ges av HWT2D och ger en array av samma storlek som originalet.
-Vi förlorar dock en del av luminansen om vi skalar värdena till 0-255 i HWT2D, kanske göra det i kompressions/iterationsdelen istället?
-Alternativt om vi har en "sista" funktion som alltid används när bilden ska sparas där man skalar värdena så de passar formatet.
-
-def saveim(arr, maxlum, path):
-    arr = arr*(maxlum/np.max(arr)) # Scale the image to the max luminosity of the original
-    arr = np.round(arr).astype(np.uint8) # Convert to uint8
-    io.imsave(path, arr)
 
 '''
 
