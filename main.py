@@ -100,3 +100,4 @@ print(f"Time for manual transformation: {t12-t02}s")
 #originalImage = Image.fromarray(np.uint8((inverseHaarTransformation(HWT2D(testIm)))), 'L')
 #originalImage.show()
 #compressedImage.save('komprimerad_kvinna.jpg')
+#hej
